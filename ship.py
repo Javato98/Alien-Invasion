@@ -13,7 +13,7 @@ class Ship:
         self.screen_rect = ai_game.screen.get_rect()
 
         self.path = Paths('resources\\ships\\alienspaceship.png').__str__()
-
+        
         # Carga la imagen de la nave y obtiene su rect
         self.image = pygame.image.load(self.path)
         self.rect = self.image.get_rect()
