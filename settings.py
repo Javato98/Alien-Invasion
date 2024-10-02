@@ -7,7 +7,8 @@ class Settings:
         '''Definimos las características de la pantalla'''
         
         #Establecemos la velocidad de la nave
-        self.ship_speed = 1.5
+        self.ship_speed = 1.0
+        self.ship_limit = 3
 
 
         #Establecemos las propiedades de la pantalla    
@@ -25,7 +26,7 @@ class Settings:
 
         #Configuración del alien
         self.alien_speed = 0.4
-        self.fleet_drop_speed = 5
+        self.fleet_drop_speed = 40
         self.fleet_direction = 1
 
         
