@@ -8,7 +8,7 @@ class Button():
         self.screen_rect = self.screen.get_rect()
 
         # EConfigura las dimensiones y propiedades del botón
-        self.width, self.height = 30, 100
+        self.width, self.height = 200, 50
         self.button_color = (0, 255, 0)
         self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont(None, 48)
@@ -21,7 +21,16 @@ class Button():
         self._prep_msg(msg)
 
 
+    def _prep_msg(self, msg):
+        '''Convierte el texto en una imagen renderizada y lo centra en el centro'''
+        self.msg_image = self.font.render(msg, True, self.text_color, self.button_color)
+        self.msg_image_rect = self.msg_image.get_rect()
+        self.msg_image_rect.center = self.rect.center
 
 
+    def draw_button(self):
+        '''Dibuja un botón en blanco y luego el mensaje'''
+        self.screen.fill(self.button_color, self.rect)
+        self.screen.blit(self.msg_image, self.msg_image_rect)
 
         
