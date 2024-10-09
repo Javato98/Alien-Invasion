@@ -140,6 +140,7 @@ class AlienInvansion:
             # Destruuye las balas existentes y crea una flota nueva
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     
 
@@ -219,7 +220,7 @@ class AlienInvansion:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
 
-            elif event.type == pygame.MOUSEBUTTONDOWN():
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 self.mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(self.mouse_pos)
 
@@ -239,6 +240,7 @@ class AlienInvansion:
             # Crea una nueva flota y centra la nave
             self._create_fleet()
             self.ship.center_ship()
+            self.settings.inicializate_dynamic_settings()
 
             # Oculta el cursor del ratón
             pygame.mouse.set_visible(False)
