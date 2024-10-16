@@ -6,7 +6,9 @@ from bullet import Bullet
 import sys
 from time import sleep
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
+
 
 
 
@@ -25,6 +27,7 @@ class AlienInvansion:
 
         # Creamos una instancia para guardar las estadísticas del juego
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
 
         # Metemos el propio juego como parametro
         self.ship = Ship(self)
@@ -136,8 +139,14 @@ class AlienInvansion:
         # Retira las balas y los aliens que han chocado
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
+        if collisions:
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliens)
+            self.sb.prep_score()
+            self.sb.check_high_score()
+
         if not self.aliens:
-            # Destruuye las balas existentes y crea una flota nueva
+            # Destruye las balas existentes y crea una flota nueva
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
@@ -170,9 +179,12 @@ class AlienInvansion:
             # Crea una flota nueva y centra la nave 
             self._create_fleet()
             self.ship.center_ship()
+            self.stats.reset_stats()
+            self.sb.prep_score()
 
             # Pausa
             sleep(0.5)
+            
 
         else:
             self.stats.game_active = False
@@ -232,6 +244,7 @@ class AlienInvansion:
             # Restablece las estadísticas del juego
             self.stats.reset_stats()
             self.stats.game_active = True 
+            self.sb.prep_score()
 
             # Se deshace de los aliens y de las balas
             self.aliens.empty()
@@ -260,6 +273,7 @@ class AlienInvansion:
             bullet.draw_bullet()
 
         self.aliens.draw(self.screen)
+        self.sb.show_score()
 
         if not self.stats.game_active:
             self.play_button.draw_button()
