@@ -6,7 +6,7 @@ class Settings:
     def __init__(self) -> None:
         '''Definimos las características de la pantalla'''
         
-        #Establecemos la velocidad de la nave
+        #Establecemos las vidas que tenemos en el juago
         self.ship_limit = 3
 
 
@@ -52,7 +52,6 @@ class Settings:
         self.alien_speed *= self.speedup_scale
 
         self.alien_points = int(self.alien_points * self.score_scale)
-        print(self.alien_points)
 
 
         

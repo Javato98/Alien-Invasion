@@ -151,6 +151,10 @@ class AlienInvansion:
             self._create_fleet()
             self.settings.increase_speed()
 
+            #Aumenta el nivel
+            self.stats.level += 1
+            self.sb.prep_level()
+
     
 
     def update_aliens(self):
@@ -169,8 +173,9 @@ class AlienInvansion:
         '''Responde al impacto de un alien con la nave'''
 
         if self.stats.ships_left > 0:
-            # Disminuye ship_left
+            # Disminuye ship_left y actualiza el marcador
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # Se deshace de las naves y las balas restantes
             self.aliens.empty()
@@ -242,9 +247,12 @@ class AlienInvansion:
         buttom_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if buttom_clicked and not self.stats.game_active:
             # Restablece las estadísticas del juego
+            self.stats.ships_left = self.settings.ship_limit
             self.stats.reset_stats()
             self.stats.game_active = True 
             self.sb.prep_score()
+            self.sb.prep_level()
+            self.sb.prep_ships()
 
             # Se deshace de los aliens y de las balas
             self.aliens.empty()
